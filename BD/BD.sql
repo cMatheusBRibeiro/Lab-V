@@ -91,4 +91,4 @@ ADD
         REFERENCES ADMINISTRADOR (ADMIN_ID);
 
 CREATE USER IF NOT EXISTS 'usuario'@'localhost' IDENTIFIED BY 'usuario';
-GRANT ALL ON blog.* TO 'usuario'@'localhost';
+GRANT ALL PRIVILEGES ON blog.* TO 'usuario'@'localhost';
