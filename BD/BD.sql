@@ -90,5 +90,5 @@ ADD
         FOREIGN KEY (ADMIN_ID)
         REFERENCES ADMINISTRADOR (ADMIN_ID);
 
-CREATE USER 'usuario'@'localhost' IDENTIFIED BY 'usuario';
+CREATE USER IF NOT EXISTS 'usuario'@'localhost' IDENTIFIED BY 'usuario';
 GRANT ALL ON blog.* TO 'usuario'@'localhost';
