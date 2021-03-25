@@ -1,5 +1,5 @@
-CREATE DATABASE BLOG;
-USE BLOG;
+CREATE DATABASE blog;
+USE blog;
 
 CREATE TABLE USUARIO (
     USR_ID INT NOT NULL,
@@ -91,4 +91,4 @@ ADD
         REFERENCES ADMINISTRADOR (ADMIN_ID);
 
 CREATE USER IF NOT EXISTS 'usuario'@'localhost' IDENTIFIED BY 'usuario';
-GRANT ALL ON BLOG.* TO 'usuario'@'localhost';
+GRANT ALL ON blog.* TO 'usuario'@'localhost';
