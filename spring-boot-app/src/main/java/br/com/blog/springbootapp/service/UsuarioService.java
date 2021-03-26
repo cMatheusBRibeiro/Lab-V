@@ -1,7 +1,5 @@
 package br.com.blog.springbootapp.service;
 
-import org.springframework.stereotype.Service;
-
 import br.com.blog.springbootapp.entity.Usuario;
 
 public interface UsuarioService {
