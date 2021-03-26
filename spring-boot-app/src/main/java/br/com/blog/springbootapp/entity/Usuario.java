@@ -1,10 +1,14 @@
 package br.com.blog.springbootapp.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +19,6 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USR_ID")
     private Integer id;
-
-    @Column(name = "ADMIN_ID")
-    private Integer admin;
 
     @Column(name = "USR_LOGIN")
     private String login;
@@ -31,6 +32,15 @@ public class Usuario {
     @Column(name = "USR_ATIVO")
     private Integer ativo;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+    private Set<HistoricoSenha> historicoDeSenhas;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+    private Set<Publicacao> publicacoes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+    private Set<Tag> tags;
+
     
     // Getter & Setter ID
     public Integer getId() {
@@ -39,15 +49,6 @@ public class Usuario {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    // Getter & Setter Admin
-    public Integer getAdmin() {
-        return this.admin;
-    }
-
-    public void setAdmin(Integer admin) {
-        this.admin = admin;
     }
 
     // Getter & Setter Login
@@ -84,5 +85,32 @@ public class Usuario {
 
     public void setAtivo(Integer ativo) {
         this.ativo = ativo;
+    }
+
+    // Getter & Setter Historico de Senha
+    public Set<HistoricoSenha> getHistoricoSenha() {
+        return this.historicoDeSenhas;
+    }
+
+    public void setHistoricoSenha(Set<HistoricoSenha> historicoDeSenhas) {
+        this.historicoDeSenhas = historicoDeSenhas;
+    }
+
+    // Getter & Setter Publicações
+    public Set<Publicacao> getPublicacoes() {
+        return publicacoes;
+    }
+
+    public void setPublicacoes(Set<Publicacao> publicacoes) {
+        this.publicacoes = publicacoes;
+    }
+
+    // Getter & Setter Tags
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
     }
 }
