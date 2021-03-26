@@ -220,4 +220,10 @@ class SpringBootAppApplicationTests {
         assertTrue(usuarioService.alterarSenha(usuario, "senhaF0rte"));
     }
 
+    @Test
+    void testarBuscaDeTags() {
+        Usuario usuario = usuarioService.criarUsuario("Jaime", "jaiminho", "senhaFr4ca");
+        assertNotNull(usuarioService.buscarTagsUsadasPeloUsuario(usuario));
+    }
+
 }

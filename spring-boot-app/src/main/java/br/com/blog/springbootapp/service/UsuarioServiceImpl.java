@@ -1,6 +1,7 @@
 package br.com.blog.springbootapp.service;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.blog.springbootapp.entity.HistoricoSenha;
+import br.com.blog.springbootapp.entity.Tag;
 import br.com.blog.springbootapp.entity.Usuario;
 import br.com.blog.springbootapp.repository.HistoricoSenhaRepository;
 import br.com.blog.springbootapp.repository.UsuarioRepository;
@@ -57,5 +59,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         return sucesso;
+    }
+
+    public Set<Tag> buscarTagsUsadasPeloUsuario(Usuario usuario) {
+
+        return usuarioRepo.buscarTagsUsadasPeloUsuario(usuario);
     }
 }
