@@ -185,4 +185,23 @@ class SpringBootAppApplicationTests {
         assertNotNull(publicacao.getId());
     }
 
+    @Test
+    void testarLoginUsuario() {
+
+        // Instanciando a classe usuário
+        Usuario usuario = new Usuario();
+
+        // Setando valores no objeto
+        usuario.setNome("Jaiminho");
+        usuario.setLogin("jaime");
+        usuario.setSenha("SenhaF0rte");
+        usuario.setAtivo(1);
+        
+        // Salvando no banco de dados
+        usuarioRepo.save(usuario);
+
+        assertEquals("jaime", usuarioRepo.findByLoginAndSenha("jaime", "SenhaF0rte").getLogin());
+
+    }
+
 }
