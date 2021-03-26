@@ -19,6 +19,7 @@ import br.com.blog.springbootapp.repository.HistoricoSenhaRepository;
 import br.com.blog.springbootapp.repository.PublicacaoRepository;
 import br.com.blog.springbootapp.repository.TagRepository;
 import br.com.blog.springbootapp.repository.UsuarioRepository;
+import br.com.blog.springbootapp.service.UsuarioService;
 
 @SpringBootTest
 @Transactional
@@ -36,6 +37,9 @@ class SpringBootAppApplicationTests {
 
     @Autowired
     private TagRepository tagRepo;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
 	@Test
 	void contextLoads() {
@@ -202,6 +206,18 @@ class SpringBootAppApplicationTests {
 
         assertEquals("jaime", usuarioRepo.findByLoginAndSenha("jaime", "SenhaF0rte").getLogin());
 
+    }
+
+    @Test
+    void testarCriarUsuarioComService() {
+        Usuario usuario = usuarioService.criarUsuario("Jaime", "jaiminho", "senhaFr4ca");
+        assertNotNull(usuario);
+    }
+
+    @Test
+    void testarAlterarSenhaUsuarioComService() {
+        Usuario usuario = usuarioService.criarUsuario("Jaime", "jaiminho", "senhaFr4ca");
+        assertTrue(usuarioService.alterarSenha(usuario, "senhaF0rte"));
     }
 
 }
