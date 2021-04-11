@@ -1,10 +1,7 @@
 package br.com.blog.springbootapp.service;
 
-import java.util.Set;
-
-import br.com.blog.springbootapp.entity.Tag;
-import br.com.blog.springbootapp.entity.Usuario;
-import java.util.List;
+import br.com.blog.springbootapp.entity.*;
+import java.util.*;
 
 public interface UsuarioService {
 
@@ -17,4 +14,12 @@ public interface UsuarioService {
     public List<Usuario> buscarTodosUsuarios();
 
     public Usuario buscarUsuarioPorId(Integer id);
+
+    public Publicacao criarPublicacao(Publicacao publicacao, Usuario usuario);
+
+    public Set<Publicacao> buscarPublicacoesPeloUsuario(Integer id);
+
+    public Tag criarTag(String nome, Usuario usuario);
+
+    public Set<Tag> buscarTagsPeloUsuario(Integer id);
 }
