@@ -5,4 +5,4 @@ tasks:
 image: gitpod/workspace-mysql
 vscode:
   extensions:
-    - odind.vsc-moonrise-theme@0.2.2:644451374f89a73de13138ad6d771ced
+    - vscode.java@1.55.1:81b40295724b7ca588f9dbd652a8635e

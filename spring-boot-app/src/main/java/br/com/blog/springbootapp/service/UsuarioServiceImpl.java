@@ -1,7 +1,7 @@
 package br.com.blog.springbootapp.service;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
@@ -64,5 +64,23 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Set<Tag> buscarTagsUsadasPeloUsuario(Usuario usuario) {
 
         return usuarioRepo.buscarTagsUsadasPeloUsuario(usuario);
+    }
+
+    @Override
+    public List<Usuario> buscarTodosUsuarios() {
+
+        return usuarioRepo.findAll();
+    }
+
+    @Override
+    public Usuario buscarUsuarioPorId(Integer id) {
+
+        Optional<Usuario> usuarioOp = usuarioRepo.findById(id);
+
+        if(usuarioOp.isPresent()) {
+
+            return usuarioOp.get();
+        }
+        throw new RuntimeException("Usuário não encontrado!");
     }
 }

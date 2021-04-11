@@ -4,6 +4,7 @@ import java.util.Set;
 
 import br.com.blog.springbootapp.entity.Tag;
 import br.com.blog.springbootapp.entity.Usuario;
+import java.util.List;
 
 public interface UsuarioService {
 
@@ -12,4 +13,8 @@ public interface UsuarioService {
     public Boolean alterarSenha(Usuario usuario, String novaSenha);
 
     public Set<Tag> buscarTagsUsadasPeloUsuario(Usuario usuario);
+
+    public List<Usuario> buscarTodosUsuarios();
+
+    public Usuario buscarUsuarioPorId(Integer id);
 }
