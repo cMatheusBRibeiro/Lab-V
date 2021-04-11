@@ -3,3 +3,6 @@ ports:
 tasks:
   - init: mysql < ./BD/BD.sql
 image: gitpod/workspace-mysql
+vscode:
+  extensions:
+    - odind.vsc-moonrise-theme@0.2.2:644451374f89a73de13138ad6d771ced
