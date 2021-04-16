@@ -17,6 +17,12 @@ public interface UsuarioService {
 
     public Publicacao criarPublicacao(Publicacao publicacao, Usuario usuario);
 
+    public Publicacao buscarPublicacaoPeloId(Integer id);
+
+    public Publicacao atualizarPublicacao(Publicacao publicacao);
+    
+    public Boolean excluirPublicacao(Publicacao publicacao);
+
     public Set<Publicacao> buscarPublicacoesPeloUsuario(Integer id);
 
     public Tag criarTag(String nome, Usuario usuario);

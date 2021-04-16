@@ -9,6 +9,7 @@ import br.com.blog.springbootapp.entity.*;
 import br.com.blog.springbootapp.repository.*;
 import br.com.blog.springbootapp.service.*;
 
+import com.fasterxml.jackson.annotation.*;
 
 @RestController
 @RequestMapping(value = "/usuario")
@@ -36,16 +37,40 @@ public class UsuarioController {
         return this.usuarioService.criarUsuario(usuario.getNome(), usuario.getLogin(), usuario.getSenha());
     }
 
+    @JsonView(View.PublicacoesUsuario.class)
     @GetMapping(value = "/{usuario}/publicacao")
     public Set<Publicacao> buscarPublicacaoPeloUsuario(@PathVariable("usuario") Integer id) {
 
         return usuarioService.buscarPublicacoesPeloUsuario(id);
     }
 
+    @JsonView(View.CadastroPublicacao.class)
     @PostMapping(value = "/publicacao")
     public Publicacao cadastrarNovaPublicacao(@RequestBody Publicacao publicacao) {
 
         return this.usuarioService.criarPublicacao(publicacao, this.usuarioService.buscarUsuarioPorId(publicacao.getUsuario().getId()));
+    }
+
+    @JsonView(View.PublicacoesUsuario.class)
+    @PutMapping(value = "/publicacao")
+    public Publicacao atualizarPublicacao(@RequestBody Publicacao publicacaoUpdate) {
+        Publicacao publicacao = usuarioService.buscarPublicacaoPeloId(publicacaoUpdate.getId());
+        
+        if(publicacaoUpdate.getTitulo() != null) {
+            publicacao.setTitulo(publicacaoUpdate.getTitulo());
+        }
+
+        if(publicacaoUpdate.getConteudo() != null) {
+            publicacao.setConteudo(publicacaoUpdate.getConteudo());
+        }
+
+        return usuarioService.atualizarPublicacao(publicacao);
+    }
+
+    @DeleteMapping(value = "/publicacao")
+    public Boolean excluirPublicacao(@RequestBody Publicacao publicacao) {
+
+        return usuarioService.excluirPublicacao(usuarioService.buscarPublicacaoPeloId(publicacao.getId()));
     }
 
     @GetMapping(value = "/{usuario}/tag")

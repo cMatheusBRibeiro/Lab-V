@@ -3,6 +3,7 @@ package br.com.blog.springbootapp.entity;
 import java.util.*;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.*;
+import br.com.blog.springbootapp.controller.*;
 
 @Entity
 @Table(name = "USUARIO")

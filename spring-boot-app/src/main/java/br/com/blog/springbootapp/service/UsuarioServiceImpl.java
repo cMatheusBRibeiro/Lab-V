@@ -107,6 +107,31 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public Publicacao buscarPublicacaoPeloId(Integer id) {
+
+        Optional<Publicacao> publicacaoOp = publicacaoRepo.findById(id);
+
+        if(publicacaoOp.isPresent()) {
+
+            return publicacaoOp.get();
+        }
+        throw new RuntimeException("Publicacao não encontrada!");
+    }
+
+    @Override
+    public Publicacao atualizarPublicacao(Publicacao publicacao) {
+
+        return publicacaoRepo.save(publicacao);
+    }
+
+    @Override
+    public Boolean excluirPublicacao(Publicacao publicacao) {
+
+        publicacao.setAtivo(0);
+        return publicacaoRepo.save(publicacao).getAtivo() == 0;
+    }
+
+    @Override
     public Set<Publicacao> buscarPublicacoesPeloUsuario(Integer id) {
 
         Optional<Usuario> usuarioOp = usuarioRepo.findById(id);
