@@ -5,4 +5,4 @@ tasks:
 image: gitpod/workspace-mysql
 vscode:
   extensions:
-    - vscode.java@1.55.1:81b40295724b7ca588f9dbd652a8635e
+    - vscode.java@1.55.2:f26594f2a26ab6145cf2e0b1442af1cc

@@ -38,6 +38,14 @@ public class Usuario {
     @JsonIgnore
     private Set<Tag> tags;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "permusr",
+        joinColumns = { @JoinColumn(name = "USR_ID") },
+        inverseJoinColumns = { @JoinColumn(name = "PERM_ID") }
+    )
+    private Set<Permissao> permissoes;
+
     
     // Getter & Setter ID
     public Integer getId() {
