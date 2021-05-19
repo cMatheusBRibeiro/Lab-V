@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.security.access.prepost.*;
+
 import br.com.blog.springbootapp.entity.*;
 import br.com.blog.springbootapp.repository.*;
 
@@ -70,6 +72,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Usuario> buscarTodosUsuarios() {
 
         return usuarioRepo.findAll();
