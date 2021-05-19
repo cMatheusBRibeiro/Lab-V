@@ -3,6 +3,3 @@ ports:
 tasks:
   - init: mysql < ./BD/BD.sql
 image: gitpod/workspace-mysql
-vscode:
-  extensions:
-    - vscode.java@1.55.2:f26594f2a26ab6145cf2e0b1442af1cc
