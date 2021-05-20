@@ -118,4 +118,13 @@ public class Usuario {
     public Set<Tag> getTags() {
         return tags;
     }
+
+    // Getter & Setter Permissoes
+    public void setPermissoes(Set<Permissao> permissoes) {
+        this.permissoes = permissoes;
+    }
+
+    public Set<Permissao> getPermissoes() {
+        return permissoes;
+    }
 }

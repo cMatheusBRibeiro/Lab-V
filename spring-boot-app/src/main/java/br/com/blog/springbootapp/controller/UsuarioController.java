@@ -79,7 +79,7 @@ public class UsuarioController {
         return usuarioService.buscarTagsPeloUsuario(id);
     }
 
-    @PostMapping(value = "tag")
+    @PostMapping(value = "/tag")
     public Tag cadastrarNovaTag(@RequestBody Tag tag) {
 
         return this.usuarioService.criarTag(tag.getNome(), this.usuarioService.buscarUsuarioPorId(tag.getUsuario().getId()));

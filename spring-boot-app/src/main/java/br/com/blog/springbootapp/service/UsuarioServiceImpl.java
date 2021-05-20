@@ -28,13 +28,20 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private TagRepository tagRepo;
 
+    @Autowired
+    private PermissaoRepository permRepo;
+
     public Usuario criarUsuario(String nome, String login, String senha) {
         Usuario novoUsuario = new Usuario();
+
+        Set<Permissao> permissoes = new HashSet<Permissao>();
+        permissoes.add(permRepo.findByTitulo("USER"));
 
         novoUsuario.setNome(nome);
         novoUsuario.setLogin(login);
         novoUsuario.setSenha(senha);
         novoUsuario.setAtivo(1);
+        novoUsuario.setPermissoes(permissoes);
 
         this.usuarioRepo.save(novoUsuario);
 
@@ -72,7 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    // @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Usuario> buscarTodosUsuarios() {
 
         return usuarioRepo.findAll();
