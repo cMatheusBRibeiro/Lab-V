@@ -3,7 +3,9 @@ package br.com.blog.springbootapp.service;
 import br.com.blog.springbootapp.entity.*;
 import java.util.*;
 
-public interface UsuarioService {
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public interface UsuarioService extends UserDetailsService {
 
     public Usuario criarUsuario(String nome, String login, String senha);
 

@@ -12,6 +12,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     public Usuario findByLoginAndSenha(String login, String senha);
 
+    public Usuario findByLogin(String login);
+
     @Query("select t from Tag t inner join t.publicacoes p where p.usuario = :usuario")
     public Set<Tag> buscarTagsUsadasPeloUsuario(Usuario usuario);
 }

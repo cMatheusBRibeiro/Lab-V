@@ -1,3 +1,7 @@
+
+DROP USER 'usuario'@'localhost';
+DROP DATABASE blog;
+
 CREATE DATABASE IF NOT EXISTS blog;
 USE blog;
 

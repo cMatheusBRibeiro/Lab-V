@@ -2,16 +2,21 @@ package br.com.blog.springbootapp.service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import org.springframework.security.access.prepost.*;
 
 import br.com.blog.springbootapp.entity.*;
 import br.com.blog.springbootapp.repository.*;
+
+import org.springframework.security.access.prepost.*;
 
 @Service("usuarioService")
 public class UsuarioServiceImpl implements UsuarioService {
@@ -31,6 +36,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private PermissaoRepository permRepo;
 
+    @Autowired
+    private PasswordEncoder passEncoder;
+
     public Usuario criarUsuario(String nome, String login, String senha) {
         Usuario novoUsuario = new Usuario();
 
@@ -39,13 +47,26 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         novoUsuario.setNome(nome);
         novoUsuario.setLogin(login);
-        novoUsuario.setSenha(senha);
+        novoUsuario.setSenha(passEncoder.encode(senha));
         novoUsuario.setAtivo(1);
         novoUsuario.setPermissoes(permissoes);
 
         this.usuarioRepo.save(novoUsuario);
 
         return novoUsuario;
+    }
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        Usuario usuario = usuarioRepo.findByLogin(username);
+
+        if(usuario == null) {
+            throw new UsernameNotFoundException("Usuário " + username + " não encontrado!");
+        }
+
+        return User.builder().username(username).password(usuario.getSenha())
+                    .authorities(usuario.getPermissoes().stream().map(Permissao::getTitulo).collect(Collectors.toList()).toArray(new String[usuario.getPermissoes().size()]))
+                    .build();
     }
 
     @Transactional
@@ -79,7 +100,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Usuario> buscarTodosUsuarios() {
 
         return usuarioRepo.findAll();
