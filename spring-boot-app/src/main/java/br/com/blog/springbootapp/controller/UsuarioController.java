@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.*;
 import java.util.*;
 
 import br.com.blog.springbootapp.entity.*;
-import br.com.blog.springbootapp.repository.*;
 import br.com.blog.springbootapp.service.*;
 
 import com.fasterxml.jackson.annotation.*;
