@@ -43,7 +43,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario novoUsuario = new Usuario();
 
         Set<Permissao> permissoes = new HashSet<Permissao>();
-        permissoes.add(permRepo.findByTitulo("USER"));
+        permissoes.add(permRepo.findByTitulo("ROLE_USER"));
 
         novoUsuario.setNome(nome);
         novoUsuario.setLogin(login);
@@ -163,6 +163,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_USER')")
     public Set<Publicacao> buscarPublicacoesPeloUsuario(Integer id) {
 
         Optional<Usuario> usuarioOp = usuarioRepo.findById(id);
