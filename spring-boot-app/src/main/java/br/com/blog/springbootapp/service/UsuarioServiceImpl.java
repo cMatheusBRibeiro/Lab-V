@@ -58,11 +58,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Usuario usuario = usuarioRepo.findByLogin(username);
+        Optional<Usuario> usuarioOp = usuarioRepo.findByLogin(username);
 
-        if(usuario == null) {
+        if(!usuarioOp.isPresent()) {
             throw new UsernameNotFoundException("Usuário " + username + " não encontrado!");
         }
+
+        Usuario usuario = usuarioOp.get();
 
         return User.builder().username(username).password(usuario.getSenha())
                     .authorities(usuario.getPermissoes().stream().map(Permissao::getTitulo).collect(Collectors.toList()).toArray(new String[usuario.getPermissoes().size()]))
@@ -113,6 +115,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         if(usuarioOp.isPresent()) {
 
+            return usuarioOp.get();
+        }
+        throw new RuntimeException("Usuário não encontrado!");
+    }
+
+    @Override
+    public Usuario buscarUsuarioPeloLogin(String login) {
+
+        Optional<Usuario> usuarioOp = usuarioRepo.findByLogin(login);
+
+        if(usuarioOp.isPresent()) {
             return usuarioOp.get();
         }
         throw new RuntimeException("Usuário não encontrado!");

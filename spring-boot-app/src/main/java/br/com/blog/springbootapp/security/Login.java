@@ -1,5 +1,7 @@
 package br.com.blog.springbootapp.security;
 
+import br.com.blog.springbootapp.entity.Usuario;
+
 public class Login {
 
     private String login;
@@ -9,6 +11,8 @@ public class Login {
     private String token;
 
     private String autorizacao;
+
+    private Usuario usuario;
 
     public String getLogin() {
         return login;
@@ -40,5 +44,13 @@ public class Login {
 
     public void setAutorizacao(String autorizacao) {
         this.autorizacao = autorizacao;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

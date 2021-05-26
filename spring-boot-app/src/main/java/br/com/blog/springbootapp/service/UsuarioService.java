@@ -30,4 +30,6 @@ public interface UsuarioService extends UserDetailsService {
     public Tag criarTag(String nome, Usuario usuario);
 
     public Set<Tag> buscarTagsPeloUsuario(Integer id);
+
+    public Usuario buscarUsuarioPeloLogin(String login);
 }

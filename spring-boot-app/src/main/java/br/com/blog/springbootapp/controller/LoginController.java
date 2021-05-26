@@ -12,16 +12,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.blog.springbootapp.entity.Usuario;
 import br.com.blog.springbootapp.security.JwtUtils;
 import br.com.blog.springbootapp.security.Login;
+import br.com.blog.springbootapp.service.UsuarioService;
 
 @RestController
 @RequestMapping(value = "/login")
 @CrossOrigin
 public class LoginController {
-    
+
     @Autowired
     private AuthenticationManager authManager;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping
     public Login autenticar(@RequestBody Login login) throws JsonProcessingException {
@@ -29,6 +34,12 @@ public class LoginController {
         auth = authManager.authenticate(auth);
         login.setPassword(null);
         login.setToken(JwtUtils.generateToken(auth));
+
+        Usuario usuario = usuarioService.buscarUsuarioPeloLogin(login.getLogin());
+        usuario.setSenha(null);
+
+        login.setUsuario(usuario);
+
         return login;
     }
 
