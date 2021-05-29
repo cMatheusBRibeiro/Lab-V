@@ -1,10 +1,18 @@
 <template>
-    <div id="login">
-        <app-box>
+    <div id="novo-usuario">
+        <app-box>   
             <h3 class="text-center border-bottom pb-3">
-                <em>LOGIN</em>
+                <em>NOVO USUÁRIO</em>
             </h3>
-            <b-form @submit="login">
+
+            <b-form @submit="cadastrar"> 
+                <b-form-group
+                    label="Nome"
+                    label-for="input-nome">
+                    <b-form-input
+                        id="input-nome"
+                        v-model="formulario.nome"/>
+                </b-form-group>
                 <b-form-group
                     label="Usuário"
                     label-for="input-user">
@@ -19,7 +27,7 @@
                     <b-form-input
                         id="input-password"
                         :type="(mostrarSenha) ? 'text' : 'password'"
-                        v-model="formulario.password"/>
+                        v-model="formulario.senha"/>
                 </b-form-group>
                 <b-form-group>
                     <b-form-checkbox
@@ -28,7 +36,7 @@
                     </b-form-checkbox>
                 </b-form-group>
 
-                <b-button block variant="success" type="submit">Entrar</b-button>
+                <b-button block variant="success" type="submit">Cadastrar</b-button>
 
                 <b-row class="d-flex align-items-center py-2">
                     <b-col cols="5">
@@ -42,7 +50,7 @@
                     </b-col>
                 </b-row>
 
-                <b-link to="novo-usuario" class="btn btn-primary btn-block">Cadastre-se</b-link>
+                <b-link to="login" class="btn btn-danger btn-block">Voltar</b-link>
             </b-form>
         </app-box>
     </div>
@@ -59,41 +67,38 @@ export default {
     data() {
         return {
             formulario: {
-                login: 'admin',
-                password: 'admin'
+                nome: '',
+                login: '',
+                senha: ''
             },
             mostrarSenha: false
         }
     },
     methods: {
-        login(e) {
+        cadastrar(e) {
             e.preventDefault()
 
             this.$swal.fire({
-                title: 'Enviando credenciais, aguarde...'
+                title: 'Enviando dados, aguarde...'
             })
             this.$swal.showLoading()
 
-            api.login(this.formulario)
-                .then((res) => {
-                    this.$store.dispatch('setDadosLogin', res.data)
-                    this.$swal.fire({
-                        title: 'Sucesso!',
-                        text: 'Login efetuado com sucesso.',
-                        icon: 'success'
-                    })
-                })
-                .catch(err => {
-                    this.$swal.fire({
-                        title: 'Erro!',
-                        text: this.tratarErro(err.response.status),
-                        icon: 'error'
-                    })
-                })
+            api.cadastrar(this.formulario)
+                .then(() => this.$swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Seu usuário foi cadastrado com sucesso.',
+                    icon: 'success'
+                }) && this.$router.push('login'))
+                .catch(err => this.$swal.fire({
+                    title: 'Erro!',
+                    text: this.tratarErro(err.response.status),
+                    icon: 'error'
+                }))
         },
         tratarErro(status) {
             let erros = {
-                403: 'Usuário ou senha inválidos.'
+                500: 'Erro interno no servidor.',
+                401: 'Usuário já existe.'
             }
             return erros[status]
         }
@@ -102,7 +107,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#login {
+#novo-usuario {
     width: 400px;
     position: absolute;
     left: 50%;

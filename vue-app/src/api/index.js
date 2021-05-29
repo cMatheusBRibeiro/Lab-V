@@ -1,12 +1,28 @@
 import axios from 'axios'
-
-const API_URL = 'https://8080-olive-puma-1rmolp82.ws-us07.gitpod.io/' + 'blog/' // URL Application + Base Path
+import store from '../store'
 
 export default {
-    getUsers() {
-        return axios.get(API_URL + 'usuario')
+    buscarTodosUsuarios() {
+        return this.get('/usuario')
     },
     login(dados) {
-        return axios.post(API_URL + 'login', dados)
+        return this.post('/login', dados)
+    },
+    cadastrar(dados) {
+        return this.post('/usuario', dados)
+    },
+    post(rota, dados) {
+        return axios.post(rota, dados, (store.getters.doneToken) ? {
+            headers: {
+                'Authorization': store.getters.doneToken
+            }
+        } : null)
+    },
+    get(rota) {
+        return axios.get(rota, (store.getters.doneToken) ? {
+            headers: {
+                'Authorization': store.getters.doneToken
+            }
+        } : null)
     }
 };
