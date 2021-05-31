@@ -1,26 +1,27 @@
 <template>
     <div id="app">
         <header v-if="usuario">
-            <b-navbar toggleable type="dark" variant="dark">
-                <b-navbar-brand href="#">Blog</b-navbar-brand>
+            <b-navbar toggleable="lg" type="dark" :variant="usuario.permissoes[0].titulo == 'ROLE_ADMIN' ? 'dark' : 'danger'">
+                <b-navbar-brand to="inicio">Blog</b-navbar-brand>
 
-                <b-navbar-toggle target="navbar-toggle-collapse">
-                    <template #default="{ expanded }">
-                        <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>
-                        <b-icon v-else icon="chevron-bar-down"></b-icon>
-                    </template>
-                </b-navbar-toggle>
+                <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-                <b-collapse id="navbar-toggle-collapse" is-nav>
+                <b-collapse id="nav-collapse" is-nav>
+                    <b-navbar-nav>
+                        <b-nav-item to="inicio">Inicio</b-nav-item>
+                        <b-nav-item to="postagens">Postagens</b-nav-item>
+                        <b-nav-item to="tags">Tags</b-nav-item>
+                    </b-navbar-nav>
+
+                    <!-- Right aligned nav items -->
                     <b-navbar-nav class="ml-auto">
-                        <b-nav-item href="#">Link 1</b-nav-item>
-                        <b-nav-item href="#">Link 2</b-nav-item>
-                        <b-nav-item href="#" disabled>Disabled</b-nav-item>
+                        <b-nav-item to="perfil">Perfil</b-nav-item>
+                        <b-nav-item @click="logout">Sair</b-nav-item>
                     </b-navbar-nav>
                 </b-collapse>
             </b-navbar>
         </header>
-        <main class="container">
+        <main class="container mt-4">
             <router-view/>
         </main>
     </div>
@@ -33,11 +34,22 @@ export default {
             usuario: null
         }
     },
+    methods: {
+        logout: function() {
+            this.$store.dispatch('removerDadosLogin')
+            this.$router.push('login')
+        }
+    },
     created() {
         setInterval(() => {
-            if (this.$store.getters.doneUsuario.id != undefined)
-                this.usuario = this.$store.getters.doneUsuario
-        }, 500)
+            this.usuario = this.$store.getters.doneUsuario
+            if (this.usuario == null) {
+
+                if(this.$router.currentRoute.path != '/login') {
+                    this.$router.push('login')
+                }
+            }
+        }, 100)
     }
 }
 </script>

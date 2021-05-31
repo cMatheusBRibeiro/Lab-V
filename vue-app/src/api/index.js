@@ -11,6 +11,9 @@ export default {
     cadastrar(dados) {
         return this.post('/usuario', dados)
     },
+    buscarPublicacoesPorUsuario(id) {
+        return this.get('/usuario/' + id + '/publicacao')
+    },
     post(rota, dados) {
         return axios.post(rota, dados, (store.getters.doneToken) ? {
             headers: {
