@@ -59,8 +59,8 @@ export default {
     data() {
         return {
             formulario: {
-                login: 'admin',
-                password: 'admin'
+                login: '',
+                password: ''
             },
             mostrarSenha: false
         }
@@ -77,6 +77,7 @@ export default {
             api.login(this.formulario)
                 .then((res) => {
                     this.$store.dispatch('setDadosLogin', res.data)
+                    this.$router.push('inicio')
                     this.$swal.fire({
                         title: 'Sucesso!',
                         text: 'Login efetuado com sucesso.',

@@ -25,7 +25,7 @@ Vue.use(VueSweetalert2)
 import axios from 'axios'
 
 axios.interceptors.request.use(config => {
-  config.baseURL = 'https://8080-gold-caterpillar-3wc8snsl.ws-us08.gitpod.io/blog/'
+  config.baseURL = 'https://8080-amaranth-eel-k96whzuz.ws-us08.gitpod.io/blog/'
   return config
 })
 
