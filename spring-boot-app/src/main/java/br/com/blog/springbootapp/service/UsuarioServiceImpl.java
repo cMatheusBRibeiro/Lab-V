@@ -176,7 +176,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
     public Set<Publicacao> buscarPublicacoesPeloUsuario(Integer id) {
 
         Optional<Usuario> usuarioOp = usuarioRepo.findById(id);

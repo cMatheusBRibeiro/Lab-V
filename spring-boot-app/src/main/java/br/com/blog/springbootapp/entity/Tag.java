@@ -3,6 +3,7 @@ package br.com.blog.springbootapp.entity;
 import java.util.*;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.*;
+import br.com.blog.springbootapp.controller.*;
 
 @Entity
 @Table(name = "tag")
@@ -18,6 +19,7 @@ public class Tag {
     private Usuario usuario;
 
     @Column(name = "TAG_NOME")
+    @JsonView({View.CadastroPublicacao.class, View.PublicacoesUsuario.class})
     private String nome;
 
     @Column(name = "TAG_ATIVO")
