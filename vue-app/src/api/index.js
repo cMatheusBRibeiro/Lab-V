@@ -14,6 +14,12 @@ export default {
     buscarPublicacoesPorUsuario(id) {
         return this.get('/usuario/' + id + '/publicacao')
     },
+    adicionarPostagem(postagem) {
+        return this.post('/usuario/publicacao', postagem)
+    },
+    excluirPostagem(id) {
+        return this.delete('/usuario/publicacao', { id })
+    },
     post(rota, dados) {
         return axios.post(rota, dados, (store.getters.doneToken) ? {
             headers: {
@@ -26,6 +32,14 @@ export default {
             headers: {
                 'Authorization': store.getters.doneToken
             }
+        } : null)
+    },
+    delete(rota, dados) {
+        return axios.delete(rota, (store.getters.doneToken) ? {
+            headers: {
+                'Authorization': store.getters.doneToken
+            },
+            data: dados
         } : null)
     }
 };

@@ -22,6 +22,11 @@ const routes = [
     path: '/inicio',
     name: 'Inicio',
     component: () => import('../views/Inicio')
+  },
+  {
+    path: '/adicionar/postagem',
+    name: 'Adicionar Postagem',
+    component: () => import('../views/adicionar/Postagem.vue')
   }
 ]
 
