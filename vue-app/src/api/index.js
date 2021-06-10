@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '../store'
+import swal from 'sweetalert2'
 
 export default {
     buscarTodosUsuarios() {
@@ -25,14 +26,22 @@ export default {
             headers: {
                 'Authorization': store.getters.doneToken
             }
-        } : null)
+        } : null).catch(() => swal.fire({
+            title: 'Erro!',
+            text: 'Ocorreu um erro na comunicação do servidor. Tente novamente.',
+            icon: 'error'
+        }))
     },
     get(rota) {
         return axios.get(rota, (store.getters.doneToken) ? {
             headers: {
                 'Authorization': store.getters.doneToken
             }
-        } : null)
+        } : null).catch(() => swal.fire({
+            title: 'Erro!',
+            text: 'Ocorreu um erro na comunicação do servidor. Tente novamente.',
+            icon: 'error'
+        }))
     },
     delete(rota, dados) {
         return axios.delete(rota, (store.getters.doneToken) ? {
@@ -40,6 +49,10 @@ export default {
                 'Authorization': store.getters.doneToken
             },
             data: dados
-        } : null)
+        } : null).catch(() => swal.fire({
+            title: 'Erro!',
+            text: 'Ocorreu um erro na comunicação do servidor. Tente novamente.',
+            icon: 'error'
+        }))
     }
 };
